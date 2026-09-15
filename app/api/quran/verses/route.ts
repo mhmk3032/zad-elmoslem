@@ -1,0 +1,2 @@
+import {NextRequest,NextResponse} from 'next/server';
+export async function GET(req:NextRequest){const id=req.nextUrl.searchParams.get('chapter')||'1'; try{const [ar,en]=await Promise.all([fetch(`https://api.alquran.cloud/v1/surah/${id}/quran-uthmani`,{next:{revalidate:86400}}),fetch(`https://api.alquran.cloud/v1/surah/${id}/en.sahih`,{next:{revalidate:86400}})]); const a=await ar.json(),e=await en.json(); return NextResponse.json({chapter:a.data,translation:e.data});}catch{return NextResponse.json({verses:[]},{status:502})}}

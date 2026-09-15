@@ -1,0 +1,2 @@
+import {NextRequest,NextResponse} from 'next/server';
+export async function GET(req:NextRequest){const q=req.nextUrl.searchParams,lat=q.get('lat'),lon=q.get('lon'); if(!lat||!lon)return NextResponse.json({error:'lat/lon required'},{status:400}); try{const r=await fetch(`https://api.aladhan.com/v1/qibla/${lat}/${lon}`,{cache:'no-store'}); const j=await r.json(); return NextResponse.json(j.data||j);}catch{return NextResponse.json({error:'تعذر تحديد القبلة'},{status:502})}}

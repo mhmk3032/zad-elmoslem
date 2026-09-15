@@ -1,0 +1,2 @@
+import {NextRequest,NextResponse} from 'next/server';
+export async function GET(req:NextRequest){const q=req.nextUrl.searchParams; const lat=q.get('lat')||'30.0444',lon=q.get('lon')||'31.2357',method=q.get('method')||'5'; try{const r=await fetch(`https://api.aladhan.com/v1/timings?latitude=${lat}&longitude=${lon}&method=${method}`,{cache:'no-store'}); const j=await r.json(); return NextResponse.json(j.data||j);}catch{return NextResponse.json({error:'تعذر جلب مواقيت الصلاة'},{status:502})}}

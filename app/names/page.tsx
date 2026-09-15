@@ -1,0 +1,3 @@
+'use client';
+import {useEffect,useState} from 'react';
+export default function Names(){const [names,setNames]=useState<any[]>([]); useEffect(()=>{fetch('/api/names').then(r=>r.json()).then(d=>setNames(d||[]))},[]);return <div className="page"><div className="wrap"><div className="page-head"><div><h1>✨ أسماء الله الحسنى</h1><p className="muted">الأسماء مرتبة للقراءة والمراجعة.</p></div></div><div className="names">{names.map((x:any)=><div className="card name" key={x.id||x.name}><span>{x.id}</span><h2>{x.name}</h2><p>{x.en?.meaning||x.translation||''}</p></div>)}</div>{!names.length&&<div className="card">تعذر تحميل القائمة الآن.</div>}</div></div>}
